@@ -3,7 +3,6 @@ package ru.practicum.shareit.item.services;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.dao.ServiceRepository;
-import ru.practicum.shareit.exceptions.ValidateException;
 import ru.practicum.shareit.item.Item;
 import ru.practicum.shareit.item.dto.ItemDto;
 
