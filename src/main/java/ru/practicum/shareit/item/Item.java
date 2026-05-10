@@ -1,0 +1,33 @@
+package ru.practicum.shareit.item;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import ru.practicum.shareit.item.dto.ItemDto;
+
+@Data
+@AllArgsConstructor
+public class Item {
+
+    private long id;
+    @NotBlank(message = "Имя предмета не может быть пустым")
+    private String name;
+    @NotBlank(message = "Описание предмета не может быть пустым")
+    private String description;
+    @NotNull(message = "Доступность предмета не может быть пустой")
+    private Boolean available;
+    private long owner;
+    private long request;
+
+    public static ItemDto toItemDto(Item item) {
+        return new ItemDto(
+                item.getId(),
+                item.getName(),
+                item.getDescription(),
+                item.getAvailable(),
+                item.getRequest()
+        );
+    }
+
+}
