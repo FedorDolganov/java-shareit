@@ -1,5 +1,6 @@
 package ru.practicum.shareit.user.repositories;
 
+import org.springframework.stereotype.Component;
 import ru.practicum.shareit.mappings.UserMapping;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.dto.AddUserDto;
@@ -8,6 +9,7 @@ import ru.practicum.shareit.user.dto.UserDto;
 import java.util.HashMap;
 import java.util.List;
 
+@Component
 public class UserRepositoryImpl implements UserRepository {
 
     private HashMap<Long, User> allUsers;

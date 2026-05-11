@@ -1,5 +1,6 @@
 package ru.practicum.shareit.item.repositories;
 
+import org.springframework.stereotype.Component;
 import ru.practicum.shareit.exceptions.NoPermutationsException;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.item.Item;
@@ -11,6 +12,7 @@ import ru.practicum.shareit.user.repositories.UserRepository;
 import java.util.HashMap;
 import java.util.List;
 
+@Component
 public class ItemRepositoryImpl implements ItemRepository {
 
     private HashMap<Long, Item> allItems;

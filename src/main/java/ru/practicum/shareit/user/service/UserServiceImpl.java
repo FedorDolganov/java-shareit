@@ -1,7 +1,6 @@
 package ru.practicum.shareit.user.service;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exceptions.DublicateException;
 import ru.practicum.shareit.user.User;
@@ -11,7 +10,6 @@ import ru.practicum.shareit.user.repositories.UserRepository;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 public class UserServiceImpl implements UserService {
 
     private UserRepository repository;
