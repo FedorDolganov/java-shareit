@@ -1,4 +1,4 @@
-package ru.practicum.shareit.item.services;
+package ru.practicum.shareit.item.repositories;
 
 import ru.practicum.shareit.item.Item;
 import ru.practicum.shareit.item.dto.AddItemDto;
@@ -6,7 +6,7 @@ import ru.practicum.shareit.item.dto.ItemDto;
 
 import java.util.List;
 
-public interface ItemService {
+public interface ItemRepository {
 
     ItemDto getItem(long id);
 

@@ -3,6 +3,7 @@ package ru.practicum.shareit.user;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.user.dto.AddUserDto;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.service.UserService;
 
@@ -19,7 +20,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto add(@Valid @RequestBody User user) {
+    public UserDto add(@Valid @RequestBody AddUserDto user) {
         return userService.addUser(user);
     }
 

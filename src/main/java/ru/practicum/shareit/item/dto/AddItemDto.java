@@ -1,4 +1,4 @@
-package ru.practicum.shareit.item;
+package ru.practicum.shareit.item.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,16 +7,14 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Item {
+public class AddItemDto {
 
-    private long id;
     @NotBlank(message = "Имя предмета не может быть пустым")
     private String name;
     @NotBlank(message = "Описание предмета не может быть пустым")
     private String description;
     @NotNull(message = "Доступность предмета не может быть пустой")
     private Boolean available;
-    private long owner;
     private long request;
 
 }

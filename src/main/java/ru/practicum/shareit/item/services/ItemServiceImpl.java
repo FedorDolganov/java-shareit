@@ -2,9 +2,10 @@ package ru.practicum.shareit.item.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.dao.ServiceRepository;
 import ru.practicum.shareit.item.Item;
+import ru.practicum.shareit.item.dto.AddItemDto;
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.repositories.ItemRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ItemServiceImpl implements ItemService {
 
-    private ServiceRepository repository;
+    private ItemRepository repository;
 
     @Override
     public ItemDto getItem(long id) {
@@ -35,7 +36,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemDto addItem(Item item, long userId) {
+    public ItemDto addItem(AddItemDto item, long userId) {
         return repository.addItem(item, userId);
     }
 

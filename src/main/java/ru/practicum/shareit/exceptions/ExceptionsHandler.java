@@ -52,4 +52,14 @@ public class ExceptionsHandler {
         );
     }
 
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Map<String, String> validationError(final Exception e) {
+        log.warn("Ошибка сервера: {}", e.getMessage());
+        return Map.of(
+                "error", "Ошибка сервера",
+                "errorMessage", e.getMessage()
+        );
+    }
+
 }

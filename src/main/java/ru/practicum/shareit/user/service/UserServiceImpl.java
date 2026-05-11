@@ -3,20 +3,21 @@ package ru.practicum.shareit.user.service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.dao.ServiceRepository;
 import ru.practicum.shareit.exceptions.DublicateException;
 import ru.practicum.shareit.user.User;
+import ru.practicum.shareit.user.dto.AddUserDto;
 import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.repositories.UserRepository;
 
 @Service
 @AllArgsConstructor
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    private ServiceRepository repository;
+    private UserRepository repository;
 
     @Override
-    public UserDto addUser(User user) {
+    public UserDto addUser(AddUserDto user) {
         for (User otherUser : repository.getAllUsers()) {
             if (otherUser.getEmail().equals(user.getEmail())) {
                 throw new DublicateException("Данная почта уже была зарегистрирована!");
