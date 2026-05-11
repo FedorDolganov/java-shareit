@@ -1,6 +1,5 @@
 package ru.practicum.shareit.item.repositories;
 
-import ru.practicum.shareit.item.Item;
 import ru.practicum.shareit.item.dto.AddItemDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 
