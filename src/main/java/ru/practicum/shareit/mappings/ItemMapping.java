@@ -1,7 +1,6 @@
 package ru.practicum.shareit.mappings;
 
 import ru.practicum.shareit.booking.Booking;
-import ru.practicum.shareit.item.Comment;
 import ru.practicum.shareit.item.Item;
 import ru.practicum.shareit.item.dto.AddItemDto;
 import ru.practicum.shareit.item.dto.CommentDto;
