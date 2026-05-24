@@ -120,26 +120,26 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public CommentDto addComment(CommentDto comment, long item_id, long userId) {
+    public CommentDto addComment(CommentDto comment, long itemId, long userId) {
         Optional<User> user = userRepository.findById(userId);
 
         if (user.isEmpty()) {
             throw new NotFoundException("Индефикатор пользователя не найден");
         }
 
-        Optional<Item> item = itemRepository.findById(item_id);
+        Optional<Item> item = itemRepository.findById(itemId);
 
         if (item.isEmpty()) {
             throw new NotFoundException("Индефикатор предмета не найден");
         }
 
-        if (!bookingRepository.existsByItem_IdAndBooker_IdAndEndIsBefore(item_id, userId, LocalDateTime.now())) {
+        if (!bookingRepository.existsByItem_IdAndBooker_IdAndEndIsBefore(itemId, userId, LocalDateTime.now())) {
             throw new ValidateException("Вы не бронировали этот товар, так что вы не можете оставить на него отзыв");
         }
 
         comment.setCreated(LocalDateTime.now());
 
-        comment.setItem(item_id);
+        comment.setItem(itemId);
 
         comment.setAuthorName(user.get().getName());
 

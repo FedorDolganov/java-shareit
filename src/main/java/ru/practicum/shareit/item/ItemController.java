@@ -23,9 +23,9 @@ public class ItemController {
         return itemService.getItemsByUser(userId);
     }
 
-    @GetMapping("/{id}")
-    public ItemDtoWithBooking get(@PathVariable long id) {
-        return itemService.getItem(id);
+    @GetMapping("/{itemId}")
+    public ItemDtoWithBooking get(@PathVariable long itemId) {
+        return itemService.getItem(itemId);
     }
 
     @PostMapping()
@@ -33,14 +33,14 @@ public class ItemController {
         return itemService.addItem(item, userId);
     }
 
-    @PostMapping("/{id}/comment")
-    public CommentDto addComment(@RequestHeader("X-Sharer-User-Id") long userId, @PathVariable long id, @Valid @RequestBody CommentDto comment) {
-        return itemService.addComment(comment, id, userId);
+    @PostMapping("/{itemId}/comment")
+    public CommentDto addComment(@RequestHeader("X-Sharer-User-Id") long userId, @PathVariable long itemId, @Valid @RequestBody CommentDto comment) {
+        return itemService.addComment(comment, itemId, userId);
     }
 
-    @PatchMapping("/{id}")
-    public ItemDto update(@RequestHeader("X-Sharer-User-Id") long userId, @PathVariable long id, @RequestBody ItemDto item) {
-        return itemService.updateItem(item, id, userId);
+    @PatchMapping("/{itemId}")
+    public ItemDto update(@RequestHeader("X-Sharer-User-Id") long userId, @PathVariable long itemId, @RequestBody ItemDto item) {
+        return itemService.updateItem(item, itemId, userId);
     }
 
     @GetMapping("/search")
