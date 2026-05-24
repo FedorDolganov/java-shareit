@@ -110,9 +110,13 @@ public class ItemServiceImpl implements ItemService {
 
         if (item.getName() != null) {
             dbItem.get().setName(item.getName());
-        } if (item.getDescription() != null) {
+        }
+
+        if (item.getDescription() != null) {
             dbItem.get().setDescription(item.getDescription());
-        } if (item.getAvailable() != null) {
+        }
+
+        if (item.getAvailable() != null) {
             dbItem.get().setAvailable(item.getAvailable());
         }
 

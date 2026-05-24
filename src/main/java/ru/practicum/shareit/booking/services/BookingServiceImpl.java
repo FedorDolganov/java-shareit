@@ -184,7 +184,7 @@ public class BookingServiceImpl implements BookingService {
 
         try {
             return BookingState.valueOf(state.toUpperCase());
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ValidateException("Параметр state имеет недоступное значение");
         }
     }
