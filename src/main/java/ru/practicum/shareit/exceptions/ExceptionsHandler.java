@@ -2,10 +2,12 @@ package ru.practicum.shareit.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -49,6 +51,16 @@ public class ExceptionsHandler {
         return Map.of(
                 "error", "Данные не найдены",
                 "errorMessage", e.getMessage()
+        );
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> validExceptions(MethodArgumentNotValidException e) {
+        log.warn("Некорректные данные: {}", e.getMessage());
+        return Map.of(
+                "error", "Некорректные данные",
+                "errorMessage", e.getBody().getDetail()
         );
     }
 
