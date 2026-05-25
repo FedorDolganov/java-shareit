@@ -10,7 +10,6 @@ import ru.practicum.shareit.booking.BookingStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Component
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query("select b " +
@@ -30,6 +29,30 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             "order by b.start desc " +
             "limit 1")
     Booking findLastBooking(long itemId, LocalDateTime now);
+
+    @Query("select b " +
+            "from Booking b " +
+            "where b.item.id in ?1 " +
+            "and b.status = 'APPROVED' " +
+            "and b.start = (" +
+            "    select MIN(b2.start) " +
+            "    from Booking b2 " +
+            "    where b2.item.id = b.item.id " +
+            "    and b2.start > ?2" +
+            ")")
+    List<Booking> findNextBookings(List<Long> itemIds, LocalDateTime now);
+
+    @Query("select b " +
+            "from Booking b " +
+            "where b.item.id in ?1 " +
+            "and b.status = 'APPROVED' " +
+            "and b.start = (" +
+            "    select MAX(b2.start) " +
+            "    from Booking b2 " +
+            "    where b2.item.id = b.item.id " +
+            "    and b2.start > ?2" +
+            ")")
+    List<Booking> findLastBookings(List<Long> itemIds, LocalDateTime now);
 
     List<Booking> findAllByBooker_Id(long userId, Sort start);
 

@@ -1,5 +1,6 @@
 package ru.practicum.shareit.user.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exceptions.DublicateException;
@@ -18,10 +19,11 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository repository;
 
+    @Transactional
     @Override
     public UserDto addUser(AddUserDto user) {
         if (repository.existsByEmail(user.getEmail())) {
-            throw new DublicateException("Данная почта уже была зарегистрирована!");
+            throw new DublicateException("Данная почта уже была зарегистрирована");
         }
 
         User finalUser = repository.save(UserMapping.to(user));
@@ -29,15 +31,16 @@ public class UserServiceImpl implements UserService {
         return UserMapping.from(finalUser);
     }
 
+    @Transactional
     @Override
     public UserDto updateUser(UserDto user, long id) {
         if (!repository.existsById(id)) {
-            throw new NotFoundException("Индефикатор пользователя не найден");
+            throw new NotFoundException("ID пользователя, которого вы хотите обновить не найден");
         }
 
         if (user.getEmail() != null) {
             if (repository.existsByEmail(user.getEmail())) {
-                throw new DublicateException("Данная почта уже была зарегистрирована!");
+                throw new DublicateException("Данная почта уже была зарегистрирована");
             }
         }
 
@@ -59,12 +62,13 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = repository.findById(id);
 
         if (user.isEmpty()) {
-            throw new NotFoundException("Пользователь с данным индефикатором не найден");
+            throw new NotFoundException("ID пользователя, которого вы хотите получить не найден");
         }
 
         return UserMapping.from(user.get());
     }
 
+    @Transactional
     @Override
     public void deleteUser(long id) {
         repository.deleteById(id);

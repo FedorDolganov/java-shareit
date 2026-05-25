@@ -1,5 +1,6 @@
 package ru.practicum.shareit.booking.services;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -30,18 +31,19 @@ public class BookingServiceImpl implements BookingService {
     private UserRepository userRepository;
     private ItemRepository itemRepository;
 
+    @Transactional
     @Override
     public SendedBookingDto addBooking(AddBookingDto booking, long userId) {
         Optional<User> user = userRepository.findById(userId);
 
         if (user.isEmpty()) {
-            throw new NotFoundException("Индефикатор пользователя не найден");
+            throw new NotFoundException("Используемый вами ID не найден в базе данных");
         }
 
         Optional<Item> item = itemRepository.findById(booking.getItemId());
 
         if (item.isEmpty()) {
-            throw new NotFoundException("Индефикатор предмета не найден");
+            throw new NotFoundException("ID предмета, который вы хотите забронировать не найден");
         }
 
         if (!item.get().getAvailable()) {
@@ -67,12 +69,13 @@ public class BookingServiceImpl implements BookingService {
         return BookingMapping.toSended(bookingRepository.save(BookingMapping.to(booking, item.get(), user.get())));
     }
 
+    @Transactional
     @Override
     public SendedBookingDto updateApproved(long userId, boolean approved, long bookingId) {
         Optional<Booking> booking = bookingRepository.findById(bookingId);
 
         if (booking.isEmpty()) {
-            throw new NotFoundException("Индефикатор бронирования не найден");
+            throw new NotFoundException("ID бронирования не найден в базе данных");
         }
 
         if (booking.get().getItem().getOwner().getId() != userId) {
@@ -80,7 +83,7 @@ public class BookingServiceImpl implements BookingService {
         }
 
         if (!userRepository.existsById(userId)) {
-            throw new ValidateException("Индефикатор пользователя не найден");
+            throw new ValidateException("Используемый вами ID не найден в базе данных");
         }
 
         if (approved) {
@@ -95,13 +98,13 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public SendedBookingDto getBooking(long userId, long bookingId) {
         if (!userRepository.existsById(userId)) {
-            throw new NotFoundException("Индефикатор пользователя не найден");
+            throw new NotFoundException("Используемый вами ID не найден в базе данных");
         }
 
         Optional<Booking> booking = bookingRepository.findById(bookingId);
 
         if (booking.isEmpty()) {
-            throw new NotFoundException("Индефикатор бронирования не найден");
+            throw new NotFoundException("ID бронирования не найден в базе данных");
         }
 
         if (booking.get().getItem().getOwner().getId() != userId && booking.get().getBooker().getId() != userId) {
@@ -114,7 +117,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<SendedBookingDto> getUserBookingsByState(long userId, String state) {
         if (!userRepository.existsById(userId)) {
-            throw new NotFoundException("Индефикатор пользователя не найден");
+            throw new NotFoundException("Используемый вами ID не найден в базе данных");
         }
 
         return switch (getState(state)) {
@@ -147,7 +150,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<SendedBookingDto> getOwnerBookingsByState(long userId, String state) {
         if (!userRepository.existsById(userId)) {
-            throw new NotFoundException("Индефикатор пользователя не найден");
+            throw new NotFoundException("Используемый вами ID не найден в базе данных");
         }
 
         return switch (getState(state)) {

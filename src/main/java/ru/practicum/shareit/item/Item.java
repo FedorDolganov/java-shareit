@@ -2,11 +2,13 @@ package ru.practicum.shareit.item;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.practicum.shareit.user.User;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "items")
 @NoArgsConstructor

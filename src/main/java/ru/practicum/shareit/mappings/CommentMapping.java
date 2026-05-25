@@ -1,10 +1,12 @@
 package ru.practicum.shareit.mappings;
 
+import lombok.experimental.UtilityClass;
 import ru.practicum.shareit.item.Comment;
 import ru.practicum.shareit.item.Item;
 import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.user.User;
 
+@UtilityClass
 public class CommentMapping {
 
     public static CommentDto from(Comment comment) {

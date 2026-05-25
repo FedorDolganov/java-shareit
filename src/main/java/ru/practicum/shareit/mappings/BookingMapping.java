@@ -1,5 +1,6 @@
 package ru.practicum.shareit.mappings;
 
+import lombok.experimental.UtilityClass;
 import ru.practicum.shareit.booking.Booking;
 import ru.practicum.shareit.booking.BookingStatus;
 import ru.practicum.shareit.booking.dto.AddBookingDto;
@@ -8,6 +9,7 @@ import ru.practicum.shareit.booking.dto.SendedBookingDto;
 import ru.practicum.shareit.item.Item;
 import ru.practicum.shareit.user.User;
 
+@UtilityClass
 public class BookingMapping {
 
     public static BookingDto from(Booking booking) {
