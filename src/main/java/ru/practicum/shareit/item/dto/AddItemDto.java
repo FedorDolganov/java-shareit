@@ -15,6 +15,6 @@ public class AddItemDto {
     private String description;
     @NotNull(message = "Доступность предмета не может быть пустой")
     private Boolean available;
-    private long request;
+    // private long request;
 
 }

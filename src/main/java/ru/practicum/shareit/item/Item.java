@@ -1,22 +1,35 @@
 package ru.practicum.shareit.item;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import ru.practicum.shareit.user.User;
 
-@Data
+@Getter
+@Setter
+@Entity
+@Table(name = "items")
+@NoArgsConstructor
 @AllArgsConstructor
 public class Item {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotBlank(message = "Имя предмета не может быть пустым")
+
     private String name;
-    @NotBlank(message = "Описание предмета не может быть пустым")
+
     private String description;
-    @NotNull(message = "Доступность предмета не может быть пустой")
+
+    @Column(name = "is_available")
     private Boolean available;
-    private long owner;
-    private long request;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
+    // private long request;
 
 }

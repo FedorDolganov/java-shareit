@@ -1,12 +1,17 @@
 package ru.practicum.shareit.user.service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exceptions.DublicateException;
+import ru.practicum.shareit.exceptions.NotFoundException;
+import ru.practicum.shareit.mappings.UserMapping;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.dto.AddUserDto;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.repositories.UserRepository;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -14,37 +19,58 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository repository;
 
+    @Transactional
     @Override
     public UserDto addUser(AddUserDto user) {
-        for (User otherUser : repository.getAllUsers()) {
-            if (otherUser.getEmail().equals(user.getEmail())) {
-                throw new DublicateException("Данная почта уже была зарегистрирована!");
-            }
+        if (repository.existsByEmail(user.getEmail())) {
+            throw new DublicateException("Данная почта уже была зарегистрирована");
         }
 
-        return repository.addUser(user);
+        User finalUser = repository.save(UserMapping.to(user));
+
+        return UserMapping.from(finalUser);
     }
 
+    @Transactional
     @Override
     public UserDto updateUser(UserDto user, long id) {
+        if (!repository.existsById(id)) {
+            throw new NotFoundException("ID пользователя, которого вы хотите обновить не найден");
+        }
+
         if (user.getEmail() != null) {
-            for (User otherUser : repository.getAllUsers()) {
-                if (otherUser.getEmail().equals(user.getEmail())) {
-                    throw new DublicateException("Данная почта уже была зарегистрирована!");
-                }
+            if (repository.existsByEmail(user.getEmail())) {
+                throw new DublicateException("Данная почта уже была зарегистрирована");
             }
         }
 
-        return repository.updateUser(user, id);
+        User userRef = repository.getReferenceById(id);
+
+        if (user.getName() != null) {
+            userRef.setName(user.getName());
+        }
+
+        if (user.getEmail() != null) {
+            userRef.setEmail(user.getEmail());
+        }
+
+        return UserMapping.from(repository.save(userRef));
     }
 
     @Override
     public UserDto getUser(long id) {
-        return repository.getUser(id);
+        Optional<User> user = repository.findById(id);
+
+        if (user.isEmpty()) {
+            throw new NotFoundException("ID пользователя, которого вы хотите получить не найден");
+        }
+
+        return UserMapping.from(user.get());
     }
 
+    @Transactional
     @Override
     public void deleteUser(long id) {
-        repository.deleteUser(id);
+        repository.deleteById(id);
     }
 }
