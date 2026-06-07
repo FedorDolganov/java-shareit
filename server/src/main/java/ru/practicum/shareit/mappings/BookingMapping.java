@@ -2,7 +2,6 @@ package ru.practicum.shareit.mappings;
 
 import lombok.experimental.UtilityClass;
 import ru.practicum.shareit.booking.Booking;
-import ru.practicum.shareit.booking.BookingStatus;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.SendedBookingDto;
 import ru.practicum.shareit.item.Item;

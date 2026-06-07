@@ -388,6 +388,6 @@ class BookingServiceTest {
 
     @Test
     void getOwnerBookingsByState_WhenStateNotFound() {
-        assertThrows(ValidateException .class, () -> bookingService.getOwnerBookingsByState(owner.getId(), "randomState"));
+        assertThrows(ValidateException.class, () -> bookingService.getOwnerBookingsByState(owner.getId(), "randomState"));
     }
 }

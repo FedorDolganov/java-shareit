@@ -3,7 +3,6 @@ package ru.practicum.shareit.item.services;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.Booking;
 import ru.practicum.shareit.booking.repositories.BookingRepository;
@@ -25,7 +24,6 @@ import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.repositories.UserRepository;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
