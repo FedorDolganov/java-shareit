@@ -111,31 +111,34 @@ public class BookingServiceImpl implements BookingService {
             throw new NotFoundException("Используемый вами ID не найден в базе данных");
         }
 
-        return switch (getState(state)) {
-            case ALL -> bookingRepository.findAllByBooker_Id(userId, Sort.by("start").ascending()).stream()
+        switch (getState(state)) {
+            case ALL:
+                return bookingRepository.findAllByBooker_Id(userId, Sort.by("start").ascending()).stream()
                     .map(BookingMapping::toSended)
                     .toList();
-            case CURRENT ->
-                    bookingRepository.findAllByBooker_IdAndEndIsAfterAndStartIsBefore(userId, LocalDateTime.now(), LocalDateTime.now(), Sort.by("start").ascending()).stream()
+            case CURRENT:
+                return bookingRepository.findAllByBooker_IdAndEndIsAfterAndStartIsBefore(userId, LocalDateTime.now(), LocalDateTime.now(), Sort.by("start").ascending()).stream()
                             .map(BookingMapping::toSended)
                             .toList();
-            case PAST ->
-                    bookingRepository.findAllByBooker_IdAndEndIsBefore(userId, LocalDateTime.now(), Sort.by("start").ascending()).stream()
+            case PAST:
+                return bookingRepository.findAllByBooker_IdAndEndIsBefore(userId, LocalDateTime.now(), Sort.by("start").ascending()).stream()
                             .map(BookingMapping::toSended)
                             .toList();
-            case FUTURE ->
-                    bookingRepository.findAllByBooker_IdAndStartIsAfter(userId, LocalDateTime.now(), Sort.by("start").ascending()).stream()
+            case FUTURE:
+                return bookingRepository.findAllByBooker_IdAndStartIsAfter(userId, LocalDateTime.now(), Sort.by("start").ascending()).stream()
                             .map(BookingMapping::toSended)
                             .toList();
-            case WAITING ->
-                    bookingRepository.findAllByBooker_IdAndStatus(userId, BookingStatus.WAITING, Sort.by("start").ascending()).stream()
+            case WAITING:
+                return bookingRepository.findAllByBooker_IdAndStatus(userId, BookingStatus.WAITING, Sort.by("start").ascending()).stream()
                             .map(BookingMapping::toSended)
                             .toList();
-            case REJECTED ->
-                    bookingRepository.findAllByBooker_IdAndStatus(userId,BookingStatus.REJECTED, Sort.by("start").ascending()).stream()
+            case REJECTED:
+                return bookingRepository.findAllByBooker_IdAndStatus(userId,BookingStatus.REJECTED, Sort.by("start").ascending()).stream()
                             .map(BookingMapping::toSended)
                             .toList();
-        };
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -144,31 +147,34 @@ public class BookingServiceImpl implements BookingService {
             throw new NotFoundException("Используемый вами ID не найден в базе данных");
         }
 
-        return switch (getState(state)) {
-            case ALL -> bookingRepository.findAllByItem_Owner_Id(userId, Sort.by("start").ascending()).stream()
+        switch (getState(state)) {
+            case ALL:
+                return bookingRepository.findAllByItem_Owner_Id(userId, Sort.by("start").ascending()).stream()
                     .map(BookingMapping::toSended)
                     .toList();
-            case CURRENT ->
-                    bookingRepository.findAllByItem_Owner_IdAndEndIsAfterAndStartIsBefore(userId, LocalDateTime.now(), LocalDateTime.now(), Sort.by("start").ascending()).stream()
+            case CURRENT:
+                return bookingRepository.findAllByItem_Owner_IdAndEndIsAfterAndStartIsBefore(userId, LocalDateTime.now(), LocalDateTime.now(), Sort.by("start").ascending()).stream()
                             .map(BookingMapping::toSended)
                             .toList();
-            case PAST ->
-                    bookingRepository.findAllByItem_Owner_IdAndEndIsBefore(userId, LocalDateTime.now(), Sort.by("start").ascending()).stream()
+            case PAST:
+                return bookingRepository.findAllByItem_Owner_IdAndEndIsBefore(userId, LocalDateTime.now(), Sort.by("start").ascending()).stream()
                             .map(BookingMapping::toSended)
                             .toList();
-            case FUTURE ->
-                    bookingRepository.findAllByItem_Owner_IdAndStartIsAfter(userId, LocalDateTime.now(), Sort.by("start").ascending()).stream()
+            case FUTURE:
+                return bookingRepository.findAllByItem_Owner_IdAndStartIsAfter(userId, LocalDateTime.now(), Sort.by("start").ascending()).stream()
                             .map(BookingMapping::toSended)
                             .toList();
-            case WAITING ->
-                    bookingRepository.findAllByItem_Owner_IdAndStatus(userId,BookingStatus.WAITING, Sort.by("start").ascending()).stream()
+            case WAITING:
+                return bookingRepository.findAllByItem_Owner_IdAndStatus(userId,BookingStatus.WAITING, Sort.by("start").ascending()).stream()
                             .map(BookingMapping::toSended)
                             .toList();
-            case REJECTED ->
-                    bookingRepository.findAllByItem_Owner_IdAndStatus(userId,BookingStatus.REJECTED, Sort.by("start").ascending()).stream()
+            case REJECTED:
+                return bookingRepository.findAllByItem_Owner_IdAndStatus(userId,BookingStatus.REJECTED, Sort.by("start").ascending()).stream()
                             .map(BookingMapping::toSended)
                             .toList();
-        };
+            default:
+                return null;
+        }
     }
 
     private BookingState getState(String state) {
