@@ -39,11 +39,11 @@ public class ItemClient extends BaseClient {
         return get("/" + itemId, userId);
     }
 
-    public ResponseEntity<Object> addItem(long userId, @Valid ItemDto item) {
+    public ResponseEntity<Object> addItem(long userId, ItemDto item) {
         return post("", userId, item);
     }
 
-    public ResponseEntity<Object> addComment(long userId, @Valid CommentDto comment, long itemId) {
+    public ResponseEntity<Object> addComment(long userId, CommentDto comment, long itemId) {
         return post("/" + itemId + "/comment", userId, comment);
     }
 
@@ -52,10 +52,6 @@ public class ItemClient extends BaseClient {
     }
 
     public ResponseEntity<Object> searchItems(long userId, String text) {
-        Map<String, Object> map = new HashMap<>();
-
-        map.put("text", text);
-
-        return get("", userId, map);
+        return get("/search?text=" + text, userId);
     }
 }

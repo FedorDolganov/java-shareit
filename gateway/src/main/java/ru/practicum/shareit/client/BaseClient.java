@@ -3,6 +3,7 @@ package ru.practicum.shareit.client;
 import java.util.List;
 import java.util.Map;
 
+import lombok.Getter;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,6 +13,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+@Getter
 public class BaseClient {
     protected final RestTemplate rest;
 
