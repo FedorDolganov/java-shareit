@@ -13,9 +13,6 @@ import ru.practicum.shareit.booking.dto.BookItemRequestDto;
 import ru.practicum.shareit.booking.dto.BookingState;
 import ru.practicum.shareit.client.BaseClient;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Slf4j
 @Service
 public class BookingClient extends BaseClient {
