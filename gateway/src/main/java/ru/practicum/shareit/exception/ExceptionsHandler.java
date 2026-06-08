@@ -24,6 +24,16 @@ public class ExceptionsHandler {
     }
 
     @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> illegalArgException(IllegalArgumentException e) {
+        log.warn("Некорректные данные: {}", e.getMessage());
+        return Map.of(
+                "error", "Некорректные данные",
+                "errorMessage", e.getMessage()
+        );
+    }
+
+    @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Map<String, String> exception(final Exception e) {
         log.warn("Ошибка: {}", e.getMessage());
