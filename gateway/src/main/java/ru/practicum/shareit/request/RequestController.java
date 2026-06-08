@@ -13,7 +13,6 @@ import ru.practicum.shareit.request.dto.ItemRequestDto;
 @RequestMapping(path = "/requests")
 @RequiredArgsConstructor
 @Slf4j
-@Validated
 public class RequestController {
     private final RequestClient requestClient;
 

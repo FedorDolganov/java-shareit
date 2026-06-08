@@ -54,16 +54,6 @@ public class ExceptionsHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> methodNitValidException(MethodArgumentNotValidException e) {
-        log.warn("Некорректные данные: {}", e.getMessage());
-        return Map.of(
-                "error", "Некорректные данные",
-                "errorMessage", e.getBody().getDetail()
-        );
-    }
-
-    @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Map<String, String> exception(final Exception e) {
         log.warn("Ошибка сервера: {}", e.getMessage());
